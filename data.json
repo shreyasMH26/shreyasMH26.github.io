@@ -1,0 +1,26 @@
+[
+  {
+    "id": "p1",
+    "title": "AI Playground",
+    "description": "Interactive ML demos with animations & data visualization.",
+    "tags": ["AI", "ML", "Visualization"],
+    "repo": "https://github.com/example/ai-playground",
+    "live": "https://example.com/ai-playground"
+  },
+  {
+    "id": "p2",
+    "title": "Portfolio Website",
+    "description": "Dynamic animated portfolio with JSON-based content management.",
+    "tags": ["Web", "Design", "Animation"],
+    "repo": "https://github.com/example/portfolio",
+    "live": "https://example.com/portfolio"
+  },
+  {
+    "id": "p3",
+    "title": "Campus Tracker",
+    "description": "Fullstack college placement management app with dashboard animations.",
+    "tags": ["Fullstack", "Database", "Dashboard"],
+    "repo": "https://github.com/example/campus-tracker",
+    "live": ""
+  }
+]
