@@ -1,96 +1,47 @@
-let projects = [];
-let activeTags = [];
+// Initialize EmailJS (replace with your EmailJS credentials)
+(function() {
+  emailjs.init("YOUR_PUBLIC_KEY_HERE");
+})();
 
-const projectContainer = document.getElementById("projects");
-const searchInput = document.getElementById("searchInput");
-const tagContainer = document.getElementById("tagContainer");
-const modal = document.getElementById("projectModal");
-const modalTitle = document.getElementById("modalTitle");
-const modalDesc = document.getElementById("modalDesc");
-const modalTags = document.getElementById("modalTags");
-const modalLinks = document.getElementById("modalLinks");
-const closeModal = document.getElementById("closeModal");
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("year").textContent = new Date().getFullYear();
 
-document.getElementById("year").textContent = new Date().getFullYear();
+  // Project Data
+  const projects = [
+    {
+      title: "Project 1",
+      desc: "A personal web project built as part of my learning journey in web development.",
+      tags: ["Web", "Frontend", "Private"],
+    },
+  ];
 
-async function loadProjects() {
-  const res = await fetch("data.json");
-  projects = await res.json();
-  renderTags();
-  renderProjects();
-}
+  const projectGrid = document.getElementById("projectGrid");
+  projects.forEach((p) => {
+    const card = document.createElement("div");
+    card.className = "project-card fade-in";
+    card.innerHTML = `
+      <h3>${p.title}</h3>
+      <p>${p.desc}</p>
+      <div class="tags">${p.tags.map(t => `<span>#${t}</span>`).join(" ")}</div>
+    `;
+    projectGrid.appendChild(card);
+  });
 
-function renderTags() {
-  const allTags = Array.from(new Set(projects.flatMap((p) => p.tags)));
-  tagContainer.innerHTML = `
-    <button class="tag ${activeTags.length === 0 ? "active" : ""}" data-tag="all">All</button>
-    ${allTags
-      .map(
-        (t) => `<button class="tag ${activeTags.includes(t) ? "active" : ""}" data-tag="${t}">${t}</button>`
-      )
-      .join("")}
-  `;
-
-  document.querySelectorAll(".tag").forEach((btn) =>
-    btn.addEventListener("click", () => {
-      const tag = btn.dataset.tag;
-      if (tag === "all") activeTags = [];
-      else if (activeTags.includes(tag)) activeTags = activeTags.filter((t) => t !== tag);
-      else activeTags.push(tag);
-      renderTags();
-      renderProjects();
+  // Contact form
+  const form = document.getElementById("contactForm");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+      from_name: form.name.value,
+      from_email: form.email.value,
+      message: form.message.value,
     })
-  );
-}
-
-function renderProjects() {
-  const query = searchInput.value.toLowerCase();
-  let filtered = projects.filter(
-    (p) =>
-      p.title.toLowerCase().includes(query) &&
-      (activeTags.length === 0 || p.tags.some((t) => activeTags.includes(t)))
-  );
-
-  projectContainer.innerHTML = filtered
-    .map(
-      (p, i) => `
-      <div class="card fade-in" style="animation-delay: ${i * 0.1}s" data-id="${p.id}">
-        <h3>${p.title}</h3>
-        <p>${p.description}</p>
-        <div class="tags">
-          ${p.tags.map((t) => `<span class="tag-label">${t}</span>`).join("")}
-        </div>
-        <div class="links">
-          ${p.repo ? `<a href="${p.repo}" target="_blank">Repo</a>` : ""}
-          ${p.live ? `<a href="${p.live}" target="_blank">Live</a>` : ""}
-          <a href="#" class="details" data-id="${p.id}">Details</a>
-        </div>
-      </div>
-    `
-    )
-    .join("");
-
-  document.querySelectorAll(".details").forEach((btn) =>
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      const project = projects.find((x) => x.id === btn.dataset.id);
-      openModal(project);
+    .then(() => {
+      alert("Message sent successfully!");
+      form.reset();
     })
-  );
-}
-
-function openModal(project) {
-  modalTitle.textContent = project.title;
-  modalDesc.textContent = project.description;
-  modalTags.innerHTML = project.tags.map((t) => `<span class="tag-label">${t}</span>`).join("");
-  modalLinks.innerHTML = `
-    ${project.repo ? `<a href="${project.repo}" target="_blank">View Repo</a>` : ""}
-    ${project.live ? `<a href="${project.live}" target="_blank">Live Demo</a>` : ""}
-  `;
-  modal.classList.remove("hidden");
-}
-
-closeModal.addEventListener("click", () => modal.classList.add("hidden"));
-searchInput.addEventListener("input", renderProjects);
-
-loadProjects();
+    .catch(() => {
+      alert("Failed to send message. Please try again later.");
+    });
+  });
+});
