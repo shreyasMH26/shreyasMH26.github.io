@@ -1,60 +1,116 @@
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-const msg = document.getElementById("message");
-const heart = document.querySelector(".heart");
-const heading = document.querySelector(".main-char");
-
-const yesMessages = [
-    "Yes — your vlogs might be ‘cringy,’ but they’re my favorite kind of chaos 😏📸",
-    "Yes — *‘You’re my Tumblr girl in a world so fake’* — realest one I know 💖",
-    "Yes — even Seedhe Maut would say your energy’s ‘seedha lit’ 🔥🎤",
-    "Yes — camera on or off, you’re always the main character 💃🎬",
-    "Yes — you turn cringe into charm and it’s kinda dangerous 😳✨",
-    "Yes — *‘She’s my Tumblr girl, I’m her G-Eazy vibe’* — you get it 😉💫",
-    "Yes — even your bloopers deserve a fan club 💕📹"
+const projects = [
+  {
+    id: "p1",
+    title: "AI Playground",
+    description: "Interactive demos and ML visualizations.",
+    tags: ["AI", "ML"],
+    repo: "https://github.com/example/ai-playground",
+    live: "https://example.com/ai-playground",
+  },
+  {
+    id: "p2",
+    title: "Portfolio Website",
+    description: "Modern portfolio built with HTML, CSS, and JS.",
+    tags: ["Web", "Design"],
+    repo: "https://github.com/example/portfolio",
+    live: "",
+  },
+  {
+    id: "p3",
+    title: "Campus Tracker",
+    description: "Tracks college placement activities efficiently.",
+    tags: ["Fullstack", "Database"],
+    repo: "",
+    live: "",
+  },
 ];
 
-let index = 0;
+const projectContainer = document.getElementById("projects");
+const searchInput = document.getElementById("searchInput");
+const tagContainer = document.getElementById("tagContainer");
+const modal = document.getElementById("projectModal");
+const modalTitle = document.getElementById("modalTitle");
+const modalDesc = document.getElementById("modalDesc");
+const modalTags = document.getElementById("modalTags");
+const modalLinks = document.getElementById("modalLinks");
+const closeModal = document.getElementById("closeModal");
 
-yesBtn.addEventListener("click", () => {
-    msg.style.opacity = 0;
-    heart.style.transform = "scale(1.4)";
-    heading.style.transform = "scale(1.05)";
-    heading.style.textShadow = "0 0 25px #ffb3ec, 0 0 45px #c3a6ff, 0 0 60px #a5d8ff";
+document.getElementById("year").textContent = new Date().getFullYear();
 
-    setTimeout(() => {
-        msg.innerHTML = yesMessages[index];
-        msg.style.opacity = 1;
-        index = (index + 1) % yesMessages.length;
-        sparkleBurst();
-        heart.style.transform = "scale(1.2)";
-        heading.style.transform = "scale(1)";
-        heading.style.textShadow = "0 0 8px #ffb3ec, 0 0 16px #c3a6ff, 0 0 24px #a5d8ff";
-    }, 300);
-});
+let activeTags = [];
 
-noBtn.addEventListener("click", () => {
-    msg.innerHTML = "Liar 😏 try again!";
-    msg.style.opacity = 1;
-    shake(msg);
-});
+function renderTags() {
+  const allTags = Array.from(new Set(projects.flatMap((p) => p.tags)));
+  tagContainer.innerHTML = `
+    <button class="tag ${activeTags.length === 0 ? "active" : ""}" data-tag="all">All</button>
+    ${allTags
+      .map(
+        (t) => `<button class="tag ${activeTags.includes(t) ? "active" : ""}" data-tag="${t}">${t}</button>`
+      )
+      .join("")}
+  `;
 
-function shake(element) {
-    element.style.transition = "transform 0.1s";
-    element.style.transform = "translateX(-5px)";
-    setTimeout(() => element.style.transform = "translateX(5px)", 100);
-    setTimeout(() => element.style.transform = "translateX(0)", 200);
+  document.querySelectorAll(".tag").forEach((btn) =>
+    btn.addEventListener("click", () => {
+      const tag = btn.dataset.tag;
+      if (tag === "all") activeTags = [];
+      else if (activeTags.includes(tag)) activeTags = activeTags.filter((t) => t !== tag);
+      else activeTags.push(tag);
+      renderTags();
+      renderProjects();
+    })
+  );
 }
 
-function sparkleBurst() {
-    for (let i = 0; i < 8; i++) {
-        const s = document.createElement("div");
-        s.classList.add("sparkle");
-        s.textContent = "✨";
-        s.style.left = `${50 + (Math.random() * 80 - 40)}%`;
-        s.style.top = `${50 + (Math.random() * 40 - 20)}%`;
-        s.style.animationDelay = `${Math.random()}s`;
-        document.body.appendChild(s);
-        setTimeout(() => s.remove(), 1200);
-    }
+function renderProjects() {
+  const query = searchInput.value.toLowerCase();
+  let filtered = projects.filter(
+    (p) =>
+      p.title.toLowerCase().includes(query) &&
+      (activeTags.length === 0 || p.tags.some((t) => activeTags.includes(t)))
+  );
+
+  projectContainer.innerHTML = filtered
+    .map(
+      (p) => `
+      <div class="card" data-id="${p.id}">
+        <h3>${p.title}</h3>
+        <p>${p.description}</p>
+        <div class="tags">
+          ${p.tags.map((t) => `<span class="tag-label">${t}</span>`).join("")}
+        </div>
+        <div class="links">
+          ${p.repo ? `<a href="${p.repo}" target="_blank">Repo</a>` : ""}
+          ${p.live ? `<a href="${p.live}" target="_blank">Live</a>` : ""}
+          <a href="#" class="details" data-id="${p.id}">Details</a>
+        </div>
+      </div>
+    `
+    )
+    .join("");
+
+  document.querySelectorAll(".details").forEach((btn) =>
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const project = projects.find((x) => x.id === btn.dataset.id);
+      openModal(project);
+    })
+  );
 }
+
+function openModal(project) {
+  modalTitle.textContent = project.title;
+  modalDesc.textContent = project.description;
+  modalTags.innerHTML = project.tags.map((t) => `<span class="tag-label">${t}</span>`).join("");
+  modalLinks.innerHTML = `
+    ${project.repo ? `<a href="${project.repo}" target="_blank">View Repo</a>` : ""}
+    ${project.live ? `<a href="${project.live}" target="_blank">Live Demo</a>` : ""}
+  `;
+  modal.classList.remove("hidden");
+}
+
+closeModal.addEventListener("click", () => modal.classList.add("hidden"));
+searchInput.addEventListener("input", renderProjects);
+
+renderTags();
+renderProjects();

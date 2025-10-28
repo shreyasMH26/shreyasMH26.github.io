@@ -1,102 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me - Shreyas M H (MH)</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-        }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MH's Modern Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero-text">
+        <h1>MH's Modern Portfolio</h1>
+        <p>A dynamic, modern portfolio built with clean design.</p>
+        <div class="buttons">
+          <a href="#projects" class="btn primary">View Projects</a>
+          <a href="#contact" class="btn secondary">Contact</a>
+        </div>
+      </div>
 
-        header {
-            background-color: #1e1e2f;
-            color: #fff;
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-        }
-
-        header p {
-            margin-top: 10px;
-            font-size: 1.1rem;
-            color: #ccc;
-        }
-
-        main {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        section {
-            margin-bottom: 30px;
-        }
-
-        section p {
-            line-height: 1.7;
-            font-size: 1.1rem;
-        }
-
-        footer {
-            background-color: #1e1e2f;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-            margin-top: 50px;
-        }
-
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 2rem;
-            }
-
-            section p {
-                font-size: 1rem;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>Shreyas M H (MH)</h1>
-        <p>Computer Science Engineering Student | AI & ML Enthusiast</p>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search projects..." />
+      </div>
     </header>
 
-    <main>
-        <section>
-            <p>Hi, I’m <strong>Shreyas M H</strong>, also known as <strong>MH</strong> — a Computer Science Engineering student driven by curiosity, creativity, and the desire to build intelligent systems.</p>
-        </section>
+    <section id="tags">
+      <h2>Tags</h2>
+      <div id="tagContainer"></div>
+    </section>
 
-        <section>
-            <p>I’m deeply passionate about <strong>Artificial Intelligence and Machine Learning</strong>, and I love exploring how technology can learn, adapt, and solve real-world problems. For me, programming isn’t just about writing code — it’s about designing logic that feels alive and meaningful.</p>
-        </section>
+    <main id="projects" class="grid"></main>
 
-        <section>
-            <p>I believe in learning through building. Every project, every bug, and every late-night idea teaches me something new about how humans and machines can grow together. My goal is to become an <strong>AI/ML engineer</strong> who creates impactful solutions that make technology more intuitive and human-centered.</p>
-        </section>
+    <!-- Modal -->
+    <div id="projectModal" class="modal hidden">
+      <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+        <h3 id="modalTitle"></h3>
+        <p id="modalDesc"></p>
+        <div id="modalTags" class="tags"></div>
+        <div id="modalLinks" class="links"></div>
+      </div>
+    </div>
 
-        <section>
-            <p>Beyond coding, I enjoy exploring ideas, experimenting with new tools, and continuously challenging myself to evolve — both as a developer and as a thinker.</p>
-        </section>
-
-        <section>
-            <p>At my core, I’m someone who believes innovation begins with curiosity — and I’m here to turn that curiosity into creation.</p>
-        </section>
-    </main>
-
-    <footer>
-        &copy; 2025 Shreyas M H (MH)
+    <footer id="contact">
+      <p>© <span id="year"></span> MH — Built with HTML, CSS & JS</p>
     </footer>
 
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
