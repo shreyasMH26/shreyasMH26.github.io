@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+@@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 
 * {
   margin: 0;
@@ -14,20 +14,61 @@ body {
   overflow-x: hidden;
 }
 
-/* Header */
-header {
+/* Particle Background */
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* Hero Section */
+#hero {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  padding: 3rem 1rem;
+  position: relative;
 }
 
-h1 {
-  font-size: 2.5rem;
+.hero-content {
+  animation: fadeIn 1s ease forwards;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
   color: #38bdf8;
+  margin-bottom: 0.5rem;
 }
 
-.tagline {
-  font-size: 1.2rem;
-  color: #94a3b8;
+.hero-content h2 {
+  font-size: 1.5rem;
+  color: #e2e8f0;
+  height: 40px;
+}
+
+.highlight {
+  color: #0ea5e9;
+}
+
+.hero-btn {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.4rem;
+  background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+  color: #0f172a;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.hero-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
 }
 
 /* About Section */
@@ -106,9 +147,8 @@ h1 {
   background: #1e293b;
   padding: 1.5rem;
   border-radius: 16px;
-  transition: all 0.4s ease;
-  overflow: hidden;
   text-align: center;
+  transition: all 0.4s ease;
 }
 
 .project-card:hover {
@@ -157,7 +197,7 @@ h1 {
   box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
 }
 
-/* Contact Form */
+/* Contact */
 form {
   display: flex;
   flex-direction: column;
@@ -194,10 +234,10 @@ footer {
   color: #94a3b8;
 }
 
-/* Animation */
+/* Animations */
 .fade-in {
-  animation: fadeIn 1s ease forwards;
   opacity: 0;
+  animation: fadeIn 1s ease forwards;
 }
 
 @keyframes fadeIn {
