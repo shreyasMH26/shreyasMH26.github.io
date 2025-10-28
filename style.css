@@ -14,6 +14,7 @@ body {
   overflow-x: hidden;
 }
 
+/* Header */
 header {
   text-align: center;
   padding: 3rem 1rem;
@@ -29,16 +30,69 @@ h1 {
   color: #94a3b8;
 }
 
-/* Section */
-section {
-  max-width: 900px;
-  margin: 2rem auto;
+/* About Section */
+.about-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 2rem;
 }
 
-h2 {
-  color: #38bdf8;
+.about-card {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 700px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+  transition: all 0.4s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.4);
+}
+
+.about-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
   margin-bottom: 1rem;
+}
+
+.about-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+}
+
+.about-text {
+  font-size: 1rem;
+  color: #e2e8f0;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.about-btn {
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+  color: #0f172a;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.about-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
 }
 
 /* Projects */
@@ -54,6 +108,7 @@ h2 {
   border-radius: 16px;
   transition: all 0.4s ease;
   overflow: hidden;
+  text-align: center;
 }
 
 .project-card:hover {
@@ -82,6 +137,24 @@ h2 {
   margin-right: 5px;
   border-radius: 8px;
   font-size: 0.8rem;
+}
+
+.project-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background: #38bdf8;
+  color: #0f172a;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.project-btn:hover {
+  background: #0ea5e9;
+  transform: translateY(-3px);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
 }
 
 /* Contact Form */
@@ -130,20 +203,4 @@ footer {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
-}.project-btn {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.6rem 1.2rem;
-  background: #38bdf8;
-  color: #0f172a;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.project-btn:hover {
-  background: #0ea5e9;
-  transform: translateY(-3px);
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
 }

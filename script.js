@@ -12,27 +12,23 @@ document.addEventListener("DOMContentLoaded", () => {
       desc: "A personal web project built as part of my learning journey in web development.",
       tags: ["Web", "Frontend", "Private"],
       image: "assets/project1.png",
-      link: "https://shreyasmh26.github.io/shrisha/", // your project link
+      link: "https://shreyasmh26.github.io/shrisha/",
     },
   ];
 
   const projectGrid = document.getElementById("projectGrid");
-  if (projects.length > 0) {
-    projects.forEach((p) => {
-      const card = document.createElement("div");
-      card.className = "project-card fade-in";
-      card.innerHTML = `
-        <img src="${p.image || 'https://via.placeholder.com/400x250?text=Project+1'}" alt="${p.title}" class="project-img" />
-        <h3>${p.title}</h3>
-        <p>${p.desc}</p>
-        <div class="tags">${p.tags.map(t => `<span>#${t}</span>`).join(" ")}</div>
-        <a href="${p.link}" target="_blank" class="project-btn">View Project</a>
-      `;
-      projectGrid.appendChild(card);
-    });
-  } else {
-    projectGrid.innerHTML = "<p>No projects yet — stay tuned!</p>";
-  }
+  projects.forEach((p) => {
+    const card = document.createElement("div");
+    card.className = "project-card fade-in";
+    card.innerHTML = `
+      <img src="${p.image || 'https://via.placeholder.com/400x250?text=Project+1'}" alt="${p.title}" class="project-img" />
+      <h3>${p.title}</h3>
+      <p>${p.desc}</p>
+      <div class="tags">${p.tags.map(t => `<span>#${t}</span>`).join(" ")}</div>
+      <a href="${p.link}" target="_blank" class="project-btn">View Project</a>
+    `;
+    projectGrid.appendChild(card);
+  });
 
   // --- Contact Form ---
   const form = document.getElementById("contactForm");
