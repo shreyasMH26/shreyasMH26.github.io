@@ -1,5 +1,5 @@
 (function() {
-  emailjs.init("YOUR_PUBLIC_KEY_HERE"); // add your EmailJS public key
+  emailjs.init("YOUR_PUBLIC_KEY_HERE"); // replace with your EmailJS public key
 })();
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "Project 1",
       desc: "A personal web project built as part of my learning journey in web development.",
       tags: ["Web", "Frontend", "Private"],
-      image: "assets/project1.png", // create /assets/project1.png or use placeholder below
+      image: "assets/project1.png",
+      link: "https://shreyasmh26.github.io/shrisha/", // your project link
     },
   ];
 
@@ -25,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <h3>${p.title}</h3>
         <p>${p.desc}</p>
         <div class="tags">${p.tags.map(t => `<span>#${t}</span>`).join(" ")}</div>
+        <a href="${p.link}" target="_blank" class="project-btn">View Project</a>
       `;
       projectGrid.appendChild(card);
     });
