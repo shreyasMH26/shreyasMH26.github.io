@@ -1,29 +1,5 @@
-const projects = [
-  {
-    id: "p1",
-    title: "AI Playground",
-    description: "Interactive demos and ML visualizations.",
-    tags: ["AI", "ML"],
-    repo: "https://github.com/example/ai-playground",
-    live: "https://example.com/ai-playground",
-  },
-  {
-    id: "p2",
-    title: "Portfolio Website",
-    description: "Modern portfolio built with HTML, CSS, and JS.",
-    tags: ["Web", "Design"],
-    repo: "https://github.com/example/portfolio",
-    live: "",
-  },
-  {
-    id: "p3",
-    title: "Campus Tracker",
-    description: "Tracks college placement activities efficiently.",
-    tags: ["Fullstack", "Database"],
-    repo: "",
-    live: "",
-  },
-];
+let projects = [];
+let activeTags = [];
 
 const projectContainer = document.getElementById("projects");
 const searchInput = document.getElementById("searchInput");
@@ -37,7 +13,12 @@ const closeModal = document.getElementById("closeModal");
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
-let activeTags = [];
+async function loadProjects() {
+  const res = await fetch("data.json");
+  projects = await res.json();
+  renderTags();
+  renderProjects();
+}
 
 function renderTags() {
   const allTags = Array.from(new Set(projects.flatMap((p) => p.tags)));
@@ -72,8 +53,8 @@ function renderProjects() {
 
   projectContainer.innerHTML = filtered
     .map(
-      (p) => `
-      <div class="card" data-id="${p.id}">
+      (p, i) => `
+      <div class="card fade-in" style="animation-delay: ${i * 0.1}s" data-id="${p.id}">
         <h3>${p.title}</h3>
         <p>${p.description}</p>
         <div class="tags">
@@ -112,5 +93,4 @@ function openModal(project) {
 closeModal.addEventListener("click", () => modal.classList.add("hidden"));
 searchInput.addEventListener("input", renderProjects);
 
-renderTags();
-renderProjects();
+loadProjects();

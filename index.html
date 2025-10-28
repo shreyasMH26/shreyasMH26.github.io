@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MH's Modern Portfolio</title>
+    <title>MH's Dynamic Animated Portfolio</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header class="hero">
+    <header class="hero fade-in">
       <div class="hero-text">
         <h1>MH's Modern Portfolio</h1>
-        <p>A dynamic, modern portfolio built with clean design.</p>
+        <p>Dynamically powered with animations & modern UI.</p>
         <div class="buttons">
           <a href="#projects" class="btn primary">View Projects</a>
           <a href="#contact" class="btn secondary">Contact</a>
@@ -22,7 +22,7 @@
       </div>
     </header>
 
-    <section id="tags">
+    <section id="tags" class="fade-in">
       <h2>Tags</h2>
       <div id="tagContainer"></div>
     </section>
@@ -31,7 +31,7 @@
 
     <!-- Modal -->
     <div id="projectModal" class="modal hidden">
-      <div class="modal-content">
+      <div class="modal-content slide-up">
         <span id="closeModal" class="close">&times;</span>
         <h3 id="modalTitle"></h3>
         <p id="modalDesc"></p>
@@ -40,8 +40,8 @@
       </div>
     </div>
 
-    <footer id="contact">
-      <p>© <span id="year"></span> MH — Built with HTML, CSS & JS</p>
+    <footer id="contact" class="fade-in">
+      <p>© <span id="year"></span> MH — Dynamic Animated Portfolio</p>
     </footer>
 
     <script src="script.js"></script>
