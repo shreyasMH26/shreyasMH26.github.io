@@ -90,4 +90,5 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Failed to send message. Please try again later.");
     });
   });
-});
+});emailjs.init("YOUR_PUBLIC_KEY_HERE");
+emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {...});
