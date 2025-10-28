@@ -1,51 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shreyas M H | Portfolio</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <!-- Hero Section -->
-    <header class="hero fade-in">
-      <div class="hero-text">
-        <h1>Shreyas M H</h1>
-        <p class="tagline">CSE Student | Web Developer</p>
-        <p class="bio">
-          🌐 CSE student | I build random web things and explore how tech actually works.
-        </p>
-        <div class="buttons">
-          <a href="#projects" class="btn primary">View Projects</a>
-          <a href="#contact" class="btn secondary">Contact</a>
-        </div>
-      </div>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shreyas M H | Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="fade-in">
+    <h1>Shreyas M H</h1>
+    <p class="tagline">CSE Student | Web Developer</p>
+  </header>
 
-    <!-- Projects Section -->
-    <section id="projects" class="fade-in">
-      <h2>My Projects</h2>
-      <div id="projectGrid" class="grid"></div>
-    </section>
+  <!-- About Section -->
+  <section id="about" class="fade-in">
+    <h2>About Me</h2>
+    <p>🌐 “CSE student | I build random web things and explore how tech actually works.”</p>
+  </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="fade-in">
-      <h2>Contact Me</h2>
-      <form id="contactForm" class="contact-form">
-        <input type="text" id="name" placeholder="Your Name" required />
-        <input type="email" id="email" placeholder="Your Email" required />
-        <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
-        <button type="submit" class="btn primary">Send Message</button>
-      </form>
-      <p class="email">📫 Email: <a href="mailto:mtbridershreyas@gmail.com">mtbridershreyas@gmail.com</a></p>
-    </section>
+  <!-- Projects -->
+  <section id="projects" class="fade-in">
+    <h2>My Projects</h2>
+    <div id="projectGrid" class="project-grid"></div>
+  </section>
 
-    <!-- Footer -->
-    <footer>
-      <p>© <span id="year"></span> Shreyas M H — Dynamic Portfolio</p>
-    </footer>
+  <!-- Contact -->
+  <section id="contact" class="fade-in">
+    <h2>Contact Me</h2>
+    <form id="contactForm">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <textarea id="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-    <script src="script.js"></script>
-  </body>
+  <!-- Footer -->
+  <footer>
+    <p>📧 mtbridershreyas@gmail.com</p>
+    <p>© <span id="year"></span> Shreyas M H</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
 </html>
