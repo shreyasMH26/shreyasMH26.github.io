@@ -1,69 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shreyas M H | Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shreyas M H — Portfolio</title>
+
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+  <!-- Libraries (defer script.js later) -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js" defer></script>
+
+  <!-- Main JS -->
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- Particle Background -->
-  <div id="particles-js"></div>
+  <!-- Ambient / decorative elements -->
+  <div id="ambient-gradient" aria-hidden="true"></div>
+  <div id="particles-js" aria-hidden="true"></div>
+  <div class="orb orb-1" aria-hidden="true"></div>
+  <div class="orb orb-2" aria-hidden="true"></div>
 
-  <!-- Hero Section -->
-  <section id="hero">
-    <div class="hero-content fade-in">
-      <h1>Hey, I'm <span class="highlight">Shreyas M H</span></h1>
-      <h2><span class="typed-text"></span></h2>
-      <a href="#projects" class="hero-btn">View My Work ↓</a>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="brand">Shreyas M H</div>
+    <nav class="nav-links">
+      <a href="#hero" data-scroll>Home</a>
+      <a href="#about" data-scroll>About</a>
+      <a href="#skills" data-scroll>Skills</a>
+      <a href="#projects" data-scroll>Projects</a>
+      <a href="#contact" data-scroll>Contact</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <div class="hero-inner parallax" id="heroInner">
+      <h1 class="hero-title">Hey — I’m <span class="accent">Shreyas M H</span></h1>
+      <div class="hero-sub"><span class="typed-text"></span></div>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary" data-scroll>View My Work</a>
+        <a href="#contact" class="btn btn-ghost" data-scroll>Contact</a>
+      </div>
     </div>
   </section>
 
-  <!-- About Section -->
-  <section id="about" class="about-section fade-in">
-    <div class="about-card">
-      <div class="about-header">
-        <img src="assets/profile.jpg" alt="Shreyas M H" class="about-img" />
-        <div>
-          <h2>About Me</h2>
-          <h3>👋 Hey, I'm Shreyas</h3>
+  <main>
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <h2 class="section-title">About</h2>
+      <div class="about-grid">
+        <article class="about-card card lift">
+          <img src="assets/profile.jpg" alt="Shreyas M H" class="avatar" />
+          <div class="about-body">
+            <h3>👋 Hey, I'm Shreyas</h3>
+            <p class="muted">CSE Student | I build random web things and explore how tech actually works.</p>
+            <p>I like experimenting with frontend UI and basic AI projects — always learning and breaking things to understand how they work.</p>
+            <a href="#projects" class="link" data-scroll>See my projects →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section">
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-grid">
+        <!-- skill cards -->
+        <div class="skill-card card lift">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" />
+          <h4>HTML</h4>
+          <p class="muted">Markup & semantics</p>
+          <div class="progress"><div style="width:95%"></div></div>
+        </div>
+        <div class="skill-card card lift">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" />
+          <h4>CSS</h4>
+          <p class="muted">Layout & styling</p>
+          <div class="progress"><div style="width:90%"></div></div>
+        </div>
+        <div class="skill-card card lift">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS" />
+          <h4>JavaScript</h4>
+          <p class="muted">Interactions</p>
+          <div class="progress"><div style="width:85%"></div></div>
+        </div>
+        <div class="skill-card card lift">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" />
+          <h4>Python</h4>
+          <p class="muted">Scripting & ML basics</p>
+          <div class="progress"><div style="width:80%"></div></div>
+        </div>
+        <div class="skill-card card lift">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" />
+          <h4>React</h4>
+          <p class="muted">Component UIs</p>
+          <div class="progress"><div style="width:70%"></div></div>
+        </div>
+        <div class="skill-card card lift">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="AI" />
+          <h4>AI / ML</h4>
+          <p class="muted">Exploration</p>
+          <div class="progress"><div style="width:65%"></div></div>
         </div>
       </div>
-      <p class="about-text">
-        🌐 “CSE student | I build random web things and explore how tech actually works.”  
-        <br><br>
-        I’m always experimenting with new ideas — from small UI projects to learning AI tools.  
-        If I’m not coding, I’m probably tweaking something just to see <em>why</em> it works.
-      </p>
-      <a href="#projects" class="about-btn">View My Work ↓</a>
-    </div>
-  </section>
+    </section>
 
-  <!-- Projects -->
-  <section id="projects" class="fade-in">
-    <h2>My Projects</h2>
-    <div id="projectGrid" class="project-grid"></div>
-  </section>
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <h2 class="section-title">Projects</h2>
+      <div id="projectGrid" class="project-grid"></div>
+    </section>
 
-  <!-- Contact -->
-  <section id="contact" class="fade-in">
-    <h2>Contact Me</h2>
-    <form id="contactForm">
-      <input type="text" id="name" placeholder="Your Name" required />
-      <input type="email" id="email" placeholder="Your Email" required />
-      <textarea id="message" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <h2 class="section-title">Contact</h2>
+      <form id="contact-form" class="contact-form card">
+        <input type="text" id="name" placeholder="Your name" required />
+        <input type="email" id="email" placeholder="Your email" required />
+        <textarea id="message" placeholder="Your message" rows="5" required></textarea>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+        <p id="form-status" class="muted"></p>
+      </form>
+    </section>
+  </main>
 
-  <!-- Footer -->
-  <footer>
-    <p>📧 mtbridershreyas@gmail.com</p>
-    <p>© <span id="year"></span> Shreyas M H</p>
+  <footer class="footer card">
+    <p class="muted">📧 <a href="mailto:mtbridershreyas@gmail.com">mtbridershreyas@gmail.com</a>  |  📞 7483794998</p>
+    <p class="muted">© <span id="year"></span> Shreyas M H</p>
   </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>
