@@ -32,33 +32,36 @@ app.post('/api/contact', async (req, res) => {
     return res.status(400).json({ error: 'Missing name, email or message' });
   }
 
-  // If SMTP env vars are provided, attempt to send email via Nodemailer
-  if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+  // Send email via Gmail (using App Password)
+  if (process.env.GMAIL_USER && process.env.GMAIL_PASS) {
     try {
       const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : 587,
-        secure: process.env.SMTP_SECURE === 'true',
+        service: 'gmail',
         auth: {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASS
+          user: process.env.GMAIL_USER,
+          pass: process.env.GMAIL_PASS // Use App Password from Google Account settings
         }
       });
 
       const mailOptions = {
-        from: process.env.EMAIL_FROM || process.env.SMTP_USER,
-        to: process.env.EMAIL_TO || process.env.SMTP_USER,
-        subject: `Portfolio contact from ${name}`,
-        text: `${message}\n\nFrom: ${name} <${email}>`,
-        html: `<p>${message.replace(/\n/g, '<br/>')}</p><hr/><p>From: ${name} &lt;${email}&gt;</p>`
+        from: process.env.GMAIL_USER,
+        to: process.env.GMAIL_USER, // Messages will be sent to your Gmail
+        subject: `Portfolio Contact: ${name}`,
+        text: `Message from your portfolio website:\n\nFrom: ${name} <${email}>\n\n${message}`,
+        html: `
+          <h3>New message from your portfolio website</h3>
+          <p style="white-space: pre-wrap;">${message}</p>
+          <hr/>
+          <p><strong>From:</strong> ${name} &lt;${email}&gt;</p>
+        `
       };
 
       const info = await transporter.sendMail(mailOptions);
-      console.log('Email sent', info && info.messageId);
-      return res.json({ ok: true, info: 'sent' });
+      console.log('Message sent to Gmail:', info.messageId);
+      return res.json({ ok: true, info: 'Message sent successfully!' });
     } catch (err) {
-      console.error('Failed to send email', err);
-      return res.status(500).json({ error: 'Failed to send email' });
+      console.error('Failed to send via Gmail:', err);
+      return res.status(500).json({ error: 'Could not send message. Please try again later.' });
     }
   }
 

@@ -13,9 +13,27 @@ Quick start (macOS / zsh):
 npm install
 ```
 
-2. (Optional) Configure SMTP
+2. Set up Gmail sending
 
-Copy `.env.example` to `.env` and fill in your SMTP provider values if you want the server to actually send e-mail via Nodemailer.
+1. Create a `.env` file from the example:
+```bash
+cp .env.example .env
+```
+
+2. Get a Gmail App Password:
+- Go to your Google Account settings
+- Enable 2-Step Verification if not already enabled
+- Go to Security > App passwords
+- Select "Mail" and your device
+- Copy the 16-character password Google generates
+
+3. Edit `.env` and add your Gmail:
+```bash
+GMAIL_USER=your.email@gmail.com
+GMAIL_PASS=your-16-digit-app-password-here
+```
+
+Messages sent through the contact form will be delivered to your Gmail inbox.
 
 3. Run the server
 
