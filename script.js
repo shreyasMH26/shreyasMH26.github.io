@@ -80,37 +80,38 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(el);
   });
 
-  // ---- Render Projects dynamically
-  const projects = [
-    {
-      title: "Project 1",
-      desc: "A personal experimental web app built for fun and learning.",
-      image: "assets/project1.png",
-      link: "https://shreyasmh26.github.io/shrisha/"
-    }
-  ];
+  // ---- Render Projects dynamically (fetch from backend)
   const grid = document.getElementById('projectGrid');
   if (grid) {
-    projects.forEach(p => {
-      const card = document.createElement('article');
-      card.className = 'project-card card lift';
-      card.innerHTML = `
-        <img class="project-img" src="${p.image || 'https://via.placeholder.com/600x360?text=Project'}" alt="${p.title}" />
-        <h4>${p.title}</h4>
-        <p class="muted">${p.desc}</p>
-        <div style="margin-top:12px"><a class="btn btn-ghost" href="${p.link}" target="_blank" rel="noopener">View Project</a></div>
-      `;
-      // tilt micro-interaction
-      card.addEventListener('mousemove', (ev) => {
-        const r = card.getBoundingClientRect();
-        const dx = (ev.clientX - (r.left + r.width/2)) / r.width;
-        const dy = (ev.clientY - (r.top + r.height/2)) / r.height;
-        card.style.transform = `rotateX(${dy * -6}deg) rotateY(${dx * 10}deg) translateZ(0)`;
-      });
-      card.addEventListener('mouseleave', ()=> card.style.transform = 'none');
-      grid.appendChild(card);
-      observer.observe(card);
-    });
+    fetch('/api/projects')
+      .then(res => res.json())
+      .then(projects => {
+        if (!Array.isArray(projects)) return;
+        projects.forEach(p => {
+          const card = document.createElement('article');
+          card.className = 'project-card card lift';
+          card.innerHTML = `
+            <img class="project-img" src="${p.image || 'https://via.placeholder.com/600x360?text=Project'}" alt="${p.title}" />
+            <h4>${p.title}</h4>
+            <p class="muted">${p.description || p.desc || ''}</p>
+            <div style="margin-top:12px">
+              ${p.live ? `<a class="btn btn-ghost" href="${p.live}" target="_blank" rel="noopener">View Project</a>` : ''}
+              ${p.repo ? `<a class="btn btn-ghost" href="${p.repo}" target="_blank" rel="noopener">Repo</a>` : ''}
+            </div>
+          `;
+          // tilt micro-interaction
+          card.addEventListener('mousemove', (ev) => {
+            const r = card.getBoundingClientRect();
+            const dx = (ev.clientX - (r.left + r.width/2)) / r.width;
+            const dy = (ev.clientY - (r.top + r.height/2)) / r.height;
+            card.style.transform = `rotateX(${dy * -6}deg) rotateY(${dx * 10}deg) translateZ(0)`;
+          });
+          card.addEventListener('mouseleave', ()=> card.style.transform = 'none');
+          grid.appendChild(card);
+          observer.observe(card);
+        });
+      })
+      .catch(err => console.error('Failed to load projects', err));
   }
 
   // ---- EmailJS contact form (replace placeholders locally)
@@ -127,23 +128,35 @@ document.addEventListener('DOMContentLoaded', () => {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const status = document.getElementById('form-status');
-      const templateParams = {
-        from_name: document.getElementById('name').value.trim(),
-        from_email: document.getElementById('email').value.trim(),
+      const payload = {
+        name: document.getElementById('name').value.trim(),
+        email: document.getElementById('email').value.trim(),
         message: document.getElementById('message').value.trim()
       };
-      if (!templateParams.from_name || !templateParams.from_email || !templateParams.message) {
+      if (!payload.name || !payload.email || !payload.message) {
         status.textContent = 'Please fill all fields.';
         return;
       }
 
-      // If you want to enable EmailJS sending, replace the two lines below locally:
-      // emailjs.init('YOUR_PUBLIC_KEY');
-      // emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-      //  .then(() => { status.textContent = '✅ Message sent!'; contactForm.reset(); })
-      //  .catch(err => { console.error(err); status.textContent = '❌ Send failed'; });
-
-      status.textContent = 'Ready to send — paste your EmailJS keys into script.js to enable.';
+      status.textContent = 'Sending...';
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+        .then(r => r.json())
+        .then(res => {
+          if (res && res.ok) {
+            status.textContent = '✅ Message sent!';
+            contactForm.reset();
+          } else {
+            status.textContent = res && res.error ? `❌ ${res.error}` : '❌ Send failed';
+          }
+        })
+        .catch(err => {
+          console.error('Contact send failed', err);
+          status.textContent = '❌ Send failed';
+        });
     });
   }
 
